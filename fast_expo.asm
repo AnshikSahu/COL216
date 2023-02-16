@@ -1,4 +1,6 @@
-.global main
+
+.text
+.globl main
 
 main:
     li $v0,5
@@ -13,7 +15,7 @@ main:
     lw $ra,0x00($sp)
         
 
-exponentation:	
+exponentiation:	
 	addi $sp,$sp,-0x08
 	sw $t0,0x04($sp)
 	sw $s0,0x00($sp)
