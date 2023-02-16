@@ -3,10 +3,10 @@
 main:
     li $v0,5
     syscall
-    mv $a0,$v0
+    add $a0,$v0,$zero
     li $v0,5
     syscall
-    mv $a1,$v0
+    add $a1,$v0,$zero
     addi $sp,$sp,-0x04
     sw $ra,0x00($sp)   
     jal exponentiation
@@ -20,7 +20,7 @@ exponentation:
 	beq $a1,$zero,jumpd
 	andi $t0,$a1,0x01
 	srl $a1,$a1,0x01
-	mv $s0,$a0
+	add $s0,$a0,$zero
     mul $a0,$a0,$a0
     addi $sp,$sp,-0x04
     sw $ra,0x00($sp)
@@ -38,5 +38,5 @@ jumpend:
     j $ra
 
 jumpd:
-    mvi	$v0,0x01
+    addi $v0,$zero,0x01
     j	jumpend
