@@ -13,7 +13,11 @@ main:
     sw $ra,0x00($sp)   
     jal exponentiation
     lw $ra,0x00($sp)
-        
+    add $a0,$v0,$zero
+    li $v0,1
+    syscall
+    li $v0,10
+    syscall  
 
 exponentiation:	
 	addi $sp,$sp,-0x08
