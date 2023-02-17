@@ -5,14 +5,23 @@ main:
 	
 
 binarysearch:
-	add $sp,$sp,-0x14
-	sw $s0,0x10($sp)
+	add $sp,$sp,-0x14 #Decrement the stack pointer by 20, to create space for 5 integers
+	
+	#Store the value of variable registers s0,s1,s2 and temporary registers t0,t1 to be able to reuse them 
+	sw $s0,0x10($sp) 
 	sw $s1,0x0c($sp)
 	sw $s2,0x08($sp)
 	sw $t0,0x04($sp)
 	sw $t1,0x00($sp)
+	
+	#Shift left by 2, i.e. multiply the number stored in argument register, i.e by 4
+	#ARGUMENT REGISTERS ME KYA KYA HAI 
 	sll $t0,$a2,0x02
+	
+	#
 	add $t1,$a0,$t0
+	
+	#Load the value of 
 	lw $s0,0x00($s1)
 	beq $a2,$a3,jump1
 	slt $t0,$a3,$a2
