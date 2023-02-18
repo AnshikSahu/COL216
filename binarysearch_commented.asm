@@ -62,7 +62,7 @@ main:
     addi $t4, $t1, -1                    # initialize t4(right index) to n-1
 
 loop:
-    # Exit loop if left index >= right index
+    # Exit loop if left index > right index
     sle $t6,$t3, $t4        # Store 1 in t6 if value in t3 <= value in t4, else store 0 in t6
     beq $t6, $zero, exit2   # If value in t6 is zero i.e. if value in t3 > value in t4 then jump to exit2. 
 
