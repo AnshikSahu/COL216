@@ -38,7 +38,7 @@ main:
         syscall                          # execute the syscall
         sw $v0, ($t0)                    # store the input in memory
 
-        addi $t2, $t2, 1                 # increment t2 by 1
+        addi $t2, $t2, 1                 # increment value stored in t2 by 1
         addi $t0, $t0, 4                 # increment memory address by 4 bytes
 
         j loop1                          # jump to loop1
@@ -47,34 +47,34 @@ main:
 
     # Prompt for key and read key
     li $v0, 4                            # syscall to print a string
-    la $a0, key_prompt                   # load address of key prompt
+    la $a0, key_prompt                   # load address of key prompt in register a0
     syscall                              # execute the syscall
 
     li $v0, 5                            # syscall to read integer
     syscall                              # execute the syscall
-    sw $v0, key                          # store the input in memory
+    sw $v0, key                          # store the input key in register v0
 
     # Load array address, length, and key
-    la $t0, arr                          # load base address of arr
+    la $t0, arr                          # load base address of arr in register t0
     lw $t1, n                            # load n into register t1
     lw $t2, key                          # load key into register t2
-    li $t3, 0                            # initialize t3 to 0
-    addi $t4, $t1, -1                    # initialize t4 to n-1
+    li $t3, 0                            # initialize t3(left index) to 0
+    addi $t4, $t1, -1                    # initialize t4(right index) to n-1
 
 loop:
     # Exit loop if left index >= right index
-    sle $t6,$t3, $t4        # Store 1 in t6 if value in t3 < value in t4, else store 0 in t6
-    beq $t6, $zero, exit2   # If value in t6 is zero i.e. if value in t3 < value in t4 then jump to exit2. 
+    sle $t6,$t3, $t4        # Store 1 in t6 if value in t3 <= value in t4, else store 0 in t6
+    beq $t6, $zero, exit2   # If value in t6 is zero i.e. if value in t3 > value in t4 then jump to exit2. 
 
     # Calculate middle index and load value at middle index
     add $t5, $t3, $t4               # Calculate middle index by adding left index and right index
     srl $t7, $t5, 1                 # Shift middle index right by 1 bit (divide by 2)
-    sll $t5, $t7, 2                 # Shift middle index left by 2 bits (multiply by 4 to get byte offset)
-    add $t8, $t5, $t0               # Add byte offset to array base address to get the memory location of middle index
-    lw $a0,0($t8)                   # Load the value at middle index into t6
+    sll $t5, $t7, 2                 # Shift middle index left by 2 bits (multiply by 4 to get offset, i.e. amount of shift required in bytes)
+    add $t8, $t5, $t0               # Add offset to array base address to get the memory location of middle index
+    lw $a0,0($t8)                   # Load the value at middle index into a0
 
     # Compare middle value to key
-    bne $a0, $t2, check              # If middle value (t6) is not equal to key (t2), jump to check
+    bne $a0, $t2, check              # If middle value i.e. value stored in a0 is not equal to key (stored in t2), jump to check
 
     # Print message and exit if key is found
     li $v0, 4                        # Load system call for printing a string (4) into $v0
@@ -89,7 +89,7 @@ loop:
 
 check:
     # If key is in left half, search left
-    ble $t2, $a0, left               # If left index (t2) is less than or equal to middle index (a0), jump to left
+    ble $t2, $a0, left               # If value stored in left index (t2) is less than or equal to value stored in middle index (a0), jump to left
     addi $t3, $t7, 1                 # Increment left index to be the index right after the middle index
     j loop                           # Jump to loop to continue the binary search
 
