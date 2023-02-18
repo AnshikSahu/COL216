@@ -63,38 +63,39 @@ main:
 
 loop:
     # Exit loop if left index >= right index
-    ble $t4, $t3, exit2
+    sle $t6,$t3, $t4
+    beq $t6, $zero, exit2
 
     # Calculate middle index and load value at middle index
     add $t5, $t3, $t4
-    srl $t5, $t5, 1
-    sll $t5, $t5, 2
-    add $t5, $t5, $t0
-    lw $t6,0($t5)
+    srl $t7, $t5, 1
+    sll $t5, $t7, 2
+    add $t8, $t5, $t0
+    lw $a0,0($t8)
 
     # Compare middle value to key
-    bne $t6, $t2, check
+    bne $a0, $t2, check
 
     # Print message and exit if key is found
     li $v0, 4
     la $a0, found_msg
     syscall
 
-    lw $a0, 0($t5)
     li $v0, 1
+    add $a0,$t7,$zero
     syscall
 
     j exit
 
 check:
     # If key is in left half, search left
-    ble $t3, $t5, left
-    addi $t3, $t5, 1
+    ble $t2, $a0, left
+    addi $t3, $t7, 1
     j loop
 
 left:
     # If key is in right half, search right
-    addi $t4, $t5, -1
+    addi $t4, $t7, -1
     j loop
 
 exit2:
