@@ -36,8 +36,9 @@ main:
 
 exponentiation:	
 	#Decrement the stack pointer by 8 to store 2 integer values
-	addi $sp,$sp,-0x04
-    	#Storing the value of variable register s0 in the memory, before overwriting	
+	addi $sp,$sp,-0x08
+    	#Storing the value of variable register s0 and t0 in the memory, before overwriting
+	sw $t0,0x04($sp)
 	sw $s0,0x00($sp)
 	
 	#If the power =0, go to the label jumpd
@@ -81,10 +82,11 @@ exponentiation:
 
 jumpend:
     #load the previously stored value of s0 from the memory
+    lw $t0,0x04($sp)
     lw $s0,0x00($sp)
     
     #Increment the stack pointer by 8, to leave the memory stack in its initial state 
-    addi $sp,$sp,0x04
+    addi $sp,$sp,0x08
     
     #Jump to the return address
     j $ra
