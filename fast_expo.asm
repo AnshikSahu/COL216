@@ -28,7 +28,7 @@ main:
     #Store the value stored in v0 in argument register to return output 
     add $a0,$v0,$zero
     
-    #YE BTA DE ANSHIK SAMAJH NHI AA RHA
+    #Printing the output integer on console
     li $v0,1
     syscall
     li $v0,10
@@ -51,9 +51,9 @@ exponentiation:
 	#Copy the value of a0, i.e. x in s0 
 	add $s0,$a0,$zero
 	
-    #Sqaure the value stored in a0, i.e. x^2
+    #Multiplication of two 32 bit values yields a 64 bit integer
     mult $a0,$a0
-    #YE BTA DE ANSHIK
+    #Here we take the lower 32 bits of the integer, and store it in register a0
     mflo $a0
     
     #Decrement the stack pointer by 4, to create space for an integer i.e. return address before overwriting 
@@ -67,13 +67,13 @@ exponentiation:
     #Load the previously stored value of return address
     lw $ra,0x00($sp)
     
-    #Store the value stored in v0 in argument register to return output 
+    #Increment the stack pointer by 4 to get it to its initial position as we have loaded the stored value back 
     addi $sp,$sp,0x04
     
     #t0 had the least significatnt bit of n, thus if value in t0=0 then n is an even number, then we jump to label jumpend
     beq $t0,$zero,jumpend
     
-    #YE BTA DE ANSHIK
+    #Multiplying the value stoed in v0 by the value stored in s0 i.e. x
     mult $v0,$s0
     mflo $v0
     
