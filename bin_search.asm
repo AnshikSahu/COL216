@@ -1,4 +1,5 @@
 # Iterative binary search in MIPS assembly
+# Design Decisions assuming array is provided as input in the form of one element in a line 
 
 .data
 arr: .word 0:100                                        # array to search
