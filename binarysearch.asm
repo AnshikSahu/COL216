@@ -4,8 +4,8 @@
 arr: .word 0:100                      # array to search
 n: .word 0                            # length of the array
 key: .word 0                          # key to search
-found_msg: .asciiz "Found key: "      # message to print when key is found
-not_found_msg: .asciiz "Key not found" # message to print when key is not found
+found_msg: .asciiz "Yes at index "      # message to print when key is found
+not_found_msg: .asciiz "Not found" # message to print when key is not found
 input_prompt: .asciiz "Enter the length of the array: " # prompt for array length input
 arr_prompt: .asciiz "Enter the elements of the array: " # prompt for array elements input
 key_prompt: .asciiz "Enter the key to search: " # prompt for user input
