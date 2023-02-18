@@ -29,3 +29,4 @@ print:
     # Exit the program
     li $v0, 0x0a    
     syscall
+    
