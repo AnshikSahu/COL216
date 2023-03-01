@@ -1,6 +1,6 @@
 .data
-input: .space 0100     # space to store input string
-heap:  .space 0100    # space for heap
+input: .space 0101     # space to store input string
+heap:  .space 0101    # space for heap
 
 .text
 main:
