@@ -24,6 +24,7 @@ main:
     
     #Load the previously stored value of return address
     lw $ra,0x00($sp)
+    addi $sp,$sp,0x04
     
     #Store the value stored in v0 in argument register to return output 
     add $a0,$v0,$zero
